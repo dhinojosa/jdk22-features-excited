@@ -20,6 +20,13 @@ public class AddStandardVectorLoopWithMask {
         }
     }
 
+    public static boolean isMaskingSupported() {
+        // Check if masking is supported for this species
+        // It does so by creating a mask of all elements
+        // If it is zero, masking is not available
+        return SPECIES.maskAll(true).length() > 0;
+    }
+
     public static void main(String[] args) {
         float[] a = {34.2f, 89.8f, 45.9f, 78.3f, 67.5f, 12.6f, 23.9f, 101.8f, 90.7f, 85.6f};
         float[] b = {24.5f, 32.6f, 38.9f, 28.2f, 14.3f, 67.5f, 54.5f, 77.8f, 46.5f, 89.5f};
@@ -29,6 +36,7 @@ public class AddStandardVectorLoopWithMask {
         System.out.printf("b length %d%n", b.length);
         System.out.printf("c length %d%n", c.length);
 
+        System.out.printf("Is masking supported? %b%n", isMaskingSupported());
         vectorComputation(a, b, c);
         System.out.printf("The size of the species is %d%n", SPECIES.length());
         System.out.printf("The amount of memory available is therefore %d%n", Float.SIZE * SPECIES.length());
