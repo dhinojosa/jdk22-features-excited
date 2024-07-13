@@ -2,8 +2,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.evolutionnext</groupId>
     <artifactId>jdk22-features-excited</artifactId>
-    <version>1.2</version>
-    <packaging>pom</packaging>
+    <version>1.0</version>
+    <packaging>jar</packaging>
     <name>${project.artifactId}</name>
     <build>
         <pluginManagement>
@@ -37,6 +37,16 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+        </plugins>
     </build>
 
     <properties>
