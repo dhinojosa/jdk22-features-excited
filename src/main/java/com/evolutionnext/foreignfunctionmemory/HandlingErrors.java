@@ -13,7 +13,8 @@ public class HandlingErrors {
         // Setup handles
         Linker.Option ccs = Linker.Option.captureCallState("errno");
         StructLayout capturedStateLayout = Linker.Option.captureStateLayout();
-        VarHandle errnoHandle = capturedStateLayout.varHandle(MemoryLayout.PathElement.groupElement("errno"));
+        VarHandle errnoHandle =
+            capturedStateLayout.varHandle(MemoryLayout.PathElement.groupElement("errno"));
 
         // log C Standard Library function
         Linker linker = Linker.nativeLinker();
@@ -39,8 +40,9 @@ public class HandlingErrors {
                 // the 'log' command.
 
                 // Get more information by consulting the value of errno:
-                int errno = (int) errnoHandle.get(capturedState);
-                System.out.println("errno: " + errno); // 33
+                int errno = (int) errnoHandle.get(capturedState, 0L);
+
+                System.out.println("errno: " + errno);
 
                 // Convert errno code to a string message:
                 String errrorString = ((MemorySegment) strerror.invokeExact(errno))

@@ -6,6 +6,13 @@ import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 
 public class InvokeQSort {
+
+    //Implementing our logic here of what this should represent
+    // int compare(const void *a, const void *b) {
+    //     return (*(int *)a - *(int *)b);
+    // }
+    //}
+
     class Qsort {
         static int qsortCompare(MemorySegment elem1, MemorySegment elem2) {
             return Integer.compare(elem1.get(ValueLayout.JAVA_INT, 0), elem2.get(ValueLayout.JAVA_INT, 0));
@@ -19,6 +26,10 @@ public class InvokeQSort {
 
         int[] sorted = null;
 
+        // Reminder. Here is the qsort signature
+        // void qsort(void *base, size_t nmemb, size_t size,
+        //           int (*compar)(const void *, const void *));
+        //
         // Create downcall handle for qsort
         MethodHandle qsort = linker.downcallHandle(
             linker.defaultLookup().find("qsort").get(),
@@ -27,7 +38,7 @@ public class InvokeQSort {
                 ValueLayout.JAVA_LONG,
                 ValueLayout.ADDRESS));
 
-        // Create method handle for qsortCompare
+        // Create method handle for qsortCompare from Java
         MethodHandle comparHandle = MethodHandles.lookup()
             .findStatic(Qsort.class,
                 "qsortCompare",

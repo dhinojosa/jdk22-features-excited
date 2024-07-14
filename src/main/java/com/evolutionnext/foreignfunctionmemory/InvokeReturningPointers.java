@@ -36,19 +36,20 @@ public class InvokeReturningPointers {
             FunctionDescriptor.ofVoid(ValueLayout.ADDRESS)
         );
 
+
+        Consumer<MemorySegment> cleanup = memorySegment -> {
+            try {
+                free.invokeExact(memorySegment);
+            } catch (Throwable e) {
+                throw new RuntimeException(e);
+            }
+        };
+
         // This reintepret method:
         // 1. Resizes the memory segment so that it's equal to byteSize
         // 2. Associates it with an existing arena
         // 3. Invokes free() to deallocate the memory allocated by malloc()
         //    when its arena is closed
-
-        Consumer<MemorySegment> cleanup = s -> {
-            try {
-                free.invokeExact(s);
-            } catch (Throwable e) {
-                throw new RuntimeException(e);
-            }
-        };
 
         return segment.reinterpret(byteSize, arena, cleanup);
     }
