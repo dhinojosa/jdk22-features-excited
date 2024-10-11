@@ -4,8 +4,10 @@ import java.math.BigInteger;
 
 public class PositiveBigInteger extends BigInteger {
     public PositiveBigInteger(long value) {
-        super(BigInteger.valueOf(value).toString());
-        if (BigInteger.valueOf(value).longValue() <= 0)
+        BigInteger bigInteger = BigInteger.valueOf(value);
+        if (bigInteger.longValue() <= 0) {
             throw new IllegalArgumentException("non-positive value");
+        }
+        super(bigInteger.toString());
     }
 }

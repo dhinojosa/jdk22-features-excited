@@ -9,9 +9,10 @@ public class ZipperGatherer {
 
 
     public static void main(String[] args) {
-        zipPairs();
-        groceryLists();
-//        attemptFibonacci();
+//        zipPairs();
+//        groceryLists();
+        // In Scala: val fib: Stream[BigInt] = 0 #:: 1 #:: fib.zip(fib.tail).map(p => p._1 + p._2)
+        attemptFibonacci();
     }
 
     private static void attemptFibonacci() {
@@ -20,10 +21,10 @@ public class ZipperGatherer {
     }
 
     private static void groceryLists() {
-        List<String> letters = List.of("Eggs", "Milk", "Bread", "Tea", "Apricots");
+        List<String> items = List.of("Eggs", "Milk", "Bread", "Tea", "Apricots");
         Stream<Integer> numbers = IntStream.range(1, 1000)
             .boxed();
-        List<String> zipped = letters.stream()
+        List<String> zipped = items.stream()
             .gather(zip(numbers).with((letter, i) -> i + ". " + letter))
             .collect(Collectors.toList());
         System.out.println(zipped);
